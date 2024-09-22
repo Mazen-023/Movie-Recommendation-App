@@ -1,16 +1,20 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { login } from "./authSlice"; // Import login action
 
 const Registration = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic here
+    const userData = { firstName, lastName, email, password };
+    // Assuming registration is successful, automatically log in
+    dispatch(login(userData));
   };
 
   return (
@@ -77,8 +81,8 @@ const Registration = () => {
           <input
             type="password"
             id="ConfirmPassword"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            // value={confirmPassword}
+            // onChange={(e) => setConfirmPassword(e.target.value)}
             className="bg-gray-700 focus:ring-indigo-500 focus:border-indigo-500 rounded-md block w-full pl-3 pr-10 py-2 text-white sm:text-sm"
             placeholder="Confirm Password"
             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"

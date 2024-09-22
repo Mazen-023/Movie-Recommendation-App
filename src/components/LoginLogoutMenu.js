@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { KeyIcon, LogoutIcon } from "@heroicons/react/solid"; // Import icons
 import { useDispatch, useSelector } from "react-redux";
-import { login, logout } from "../redux/slices/authSlice";
+import { login, logout } from "./Form/authSlice";
 
 const LoginLogoutMenu = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated); // Access auth state

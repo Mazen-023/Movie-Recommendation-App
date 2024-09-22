@@ -1,19 +1,22 @@
 // src/redux/slices/authSlice.js
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  isAuthenticated: false, // Start with user being logged out
+  isAuthenticated: false, // By default, the user is logged out
+  user: null, // Store user details when logged in
 };
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState,
   reducers: {
-    login: (state) => {
+    login: (state, action) => {
       state.isAuthenticated = true;
+      state.user = action.payload; // Store user info
     },
     logout: (state) => {
       state.isAuthenticated = false;
+      state.user = null; // Clear user info
     },
   },
 });
