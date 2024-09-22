@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { KeyIcon, LogoutIcon } from "@heroicons/react/solid"; // Import icons
 import { useDispatch, useSelector } from "react-redux";
-import { login, logout } from "./Form/authSlice";
+import { login, logout } from "../redux/slices/authSlice";
 
 const LoginLogoutMenu = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated); // Access auth state
@@ -18,8 +18,7 @@ const LoginLogoutMenu = () => {
         to="/login"
         onClick={handleLogin}
         className={({ isActive }) =>
-          `flex items-center space-x-2 block text-blue-500 font-semibold hover:text-blue-700 hover:underline transition duration-300 ${
-            isActive ? "text-blue-700 underline" : ""
+          `flex items-center space-x-2 block text-blue-500 font-semibold hover:text-blue-700 hover:underline transition duration-300 ${isActive ? "text-blue-700 underline" : ""
           }`
         }
       >
@@ -32,8 +31,7 @@ const LoginLogoutMenu = () => {
         to="/registration"
         onClick={handleLogout}
         className={({ isActive }) =>
-          `flex items-center space-x-2 block text-blue-500 font-semibold hover:text-blue-700 hover:underline transition duration-300 mt-2 ${
-            isActive ? "text-blue-700 underline" : ""
+          `flex items-center space-x-2 block text-blue-500 font-semibold hover:text-blue-700 hover:underline transition duration-300 mt-2 ${isActive ? "text-blue-700 underline" : ""
           }`
         }
       >

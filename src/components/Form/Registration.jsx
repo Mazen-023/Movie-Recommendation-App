@@ -1,33 +1,9 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { signup, signupUser } from "../../redux/slices/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const Registration = () => {
-  // const [firstName, setFirstName] = useState("");
-  // const [lastName, setLastName] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [confirmPassword, setConfirmPassword] = useState("");
-
-  // const dispatch = useDispatch();
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   dispatch(
-  //     signup({
-  //       name: firstName + " " + lastName,
-  //       email: email,
-  //       password: password,
-  //       passwordConfirm: confirmPassword,
-  //     })
-  //   );
-
-  //   // Handle form submission logic here
-  //   console.log("asfasdf");
-  // };
-
   const dispatch = useDispatch();
   const { isLoading, error } = useSelector((state) => state.auth);
 
