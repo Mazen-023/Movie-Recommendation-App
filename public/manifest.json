@@ -13,6 +13,11 @@
       "sizes": "192x192"
     },
     {
+      "src": "M.ico",
+      "type": "image/x-icon",
+      "sizes": "64x64 32x32"
+    },
+    {
       "src": "logo512.png",
       "type": "image/png",
       "sizes": "512x512"
