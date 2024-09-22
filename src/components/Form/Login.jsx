@@ -20,6 +20,7 @@ const Login = () => {
             required
           />
         </label>
+        <div class="w-full h-px my-4"></div>
         <label className="mb-6">
           <input
             type="password"
@@ -30,6 +31,7 @@ const Login = () => {
             required
           />
         </label>
+        <div class="w-full h-px my-2"></div>
         <Link to="/reset" className="text-indigo-600 hover:text-indigo-800 inline-flex items-center">
           Forgot Password?
         </Link>
