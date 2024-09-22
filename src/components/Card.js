@@ -14,6 +14,7 @@ const Card = ({ data, trending, index, media_type }) => {
                 data?.poster_path ? (
                     <img
                         src={imageURL + data?.poster_path}
+                        alt="Something went wrong please wait"
                     />
                 ) : (
                     <div className='bg-neutral-800 h-full w-full flex justify-center items-center'>
@@ -29,7 +30,7 @@ const Card = ({ data, trending, index, media_type }) => {
                 {
                     trending && (
                         <div className='py-1 px-4 backdrop-blur-3xl rounded-r-full bg-black/60 overflow-hidden'>
-                            #{index} Trending
+                            {index} Trending
                         </div>
                     )
                 }

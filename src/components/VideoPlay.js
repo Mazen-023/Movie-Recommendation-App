@@ -16,6 +16,7 @@ const VideoPlay = ({data, close,media_type}) => {
           <iframe
             src={`https://www.youtube.com/embed/${videoData?.results[0]?.key}`}
             className='w-full h-full'
+            title="Something Went Wrong"
           />
 
 

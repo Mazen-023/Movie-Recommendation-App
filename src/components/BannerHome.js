@@ -42,6 +42,7 @@ const BannerHome = () => {
                                     <img
                                         src={imageURL+data.backdrop_path}
                                         className='h-full w-full object-cover'
+                                        alt="Something went wrong please wait"
                                     />
                                 </div>
 
