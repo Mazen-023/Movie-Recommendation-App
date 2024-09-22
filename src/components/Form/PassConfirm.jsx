@@ -16,8 +16,8 @@ const PassConfirm = () => {
         onSubmit={handleSubmit}
         className="Form bg-gray-800 text-white px-8 py-10 rounded-lg shadow-md max-w-md"
       >
-        <h2 className="text-2xl font-bold mb-6">Create a New Password</h2>
-        <p className="block mb-4 text-sm font-medium">
+        <h2 className="text-2xl text-center font-bold mb-6">Create a New Password</h2>
+        <p className="block mb-4 text-sm text-center font-medium">
           Your new password must not be the same as your previous one
         </p>
         <label htmlFor="newPass" className="block mb-6">
@@ -50,7 +50,7 @@ const PassConfirm = () => {
         >
           Change Password
         </button>
-        <p className="text-sm text-indigo-600 hover:text-indigo-800 mt-4 block">
+        <p className="text-sm text-center text-indigo-600 hover:text-indigo-800 mt-4 block">
           <span>If you need further assistance, </span>
           <a href="#1" className="text-indigo-600 hover:text-indigo-800">
              Contact Support Team

@@ -15,8 +15,8 @@ const ResetPass = () => {
         onSubmit={handleSubmit}
         className="Form bg-gray-800 text-white px-8 py-10 rounded-lg shadow-md max-w-md md:w-1/2 lg:w-1/3"
       >
-        <h2 className="text-2xl font-bold mb-6">Reset your password</h2>
-        <span className="block mb-4 text-sm font-medium">
+        <h2 className="text-2xl text-center font-bold mb-6">Reset your password</h2>
+        <span className="block mb-4 text-center text-sm font-medium">
           To reset your password, enter your Email
         </span>
         <label htmlFor="email" className="block mb-6">
@@ -37,7 +37,7 @@ const ResetPass = () => {
         >
           Next
         </button>
-        <Link to="/login" className="text-sm text-indigo-600 hover:text-indigo-800 mt-4 block">
+        <Link to="/login" className="text-sm text-center text-indigo-600 hover:text-indigo-800 mt-4 block">
           Back to login page
         </Link>
       </form>

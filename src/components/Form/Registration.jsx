@@ -23,7 +23,7 @@ const Registration = () => {
         onSubmit={handleSubmit}
         className="Form bg-gray-800 text-white px-8 py-10 rounded-lg shadow-md max-w-md md:w-1/2 lg:w-1/3"
       >
-        <h2 className="text-2xl font-bold mb-6">Create a new account</h2>
+        <h2 className="text-2xl text-center font-bold mb-6">Create a new account</h2>
         <div className="flex mb-6">
           {/* First Name */}
           <label htmlFor="Fname" className="flex flex-wrap">
@@ -97,7 +97,7 @@ const Registration = () => {
           Registration
         </button>
         {/* Login Link */}
-        <Link to="/login" className="text-sm text-indigo-600 hover:text-indigo-800 mt-4 block">
+        <Link to="/login" className="text-sm text-center text-indigo-600 hover:text-indigo-800 mt-4 block">
           Already have an account! Login
         </Link>
       </form>

@@ -22,7 +22,7 @@ const Login = () => {
         onSubmit={handleSubmit}
         className="Form bg-gray-800 text-white px-8 py-10 rounded-lg shadow-md max-w-md md:w-1/2 lg:w-1/3"
       >
-        <h2 className="text-2xl font-bold mb-6">Sign in to your account</h2>
+        <h2 className="text-2xl text-center font-bold mb-6">Sign in to your account</h2>
         <label className="mb-6">
           <input
             type="email"
@@ -54,7 +54,7 @@ const Login = () => {
         >
           Sign in
         </button>
-        <Link to="/registration" className="text-sm text-indigo-600 hover:text-indigo-800 mt-4 block">
+        <Link to="/registration" className="text-sm text-center text-indigo-600 hover:text-indigo-800 mt-4 block">
           Do not have an Account? Sign Up
         </Link>
       </form>
