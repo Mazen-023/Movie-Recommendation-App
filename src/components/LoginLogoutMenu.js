@@ -35,8 +35,8 @@ const LoginLogoutMenu = () => {
           }`
         }
       >
-        <LogoutIcon className="h-5 w-5" /> {/* Logout icon */}
-        <span>Logout</span>
+        {/* <LogoutIcon className="h-5 w-5" /> Logout icon
+        <span>Logout</span> */}
       </NavLink>
     </div>
   );
