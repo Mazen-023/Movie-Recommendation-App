@@ -10,8 +10,8 @@ import Registration from "../components/Form/Registration";
 import PassConfirm from "../components/Form/PassConfirm";
 import ResetPass from "../components/Form/ResetPass";
 import Verification from "../components/Form/Verification";
-import Dashboard from '../components/Dashboard'; // Protected Route
 import ProtectedRoute from '../components/ProtectedRoute';
+import Profile from "../Profile/Profile";
 
 const router = createBrowserRouter([
   {
@@ -43,13 +43,6 @@ const router = createBrowserRouter([
         element: <Registration />,
       },
       {
-        path: "dahboard",
-        element: 
-          <ProtectedRoute>
-            <Dashboard />
-          </ProtectedRoute>
-      },
-      {
         path: "confirmation",
         element: <PassConfirm />,
       },
@@ -60,6 +53,13 @@ const router = createBrowserRouter([
       {
         path: "verification",
         element: <Verification />,
+      },
+      {
+        path: "profile",
+        element: 
+          // <ProtectedRoute>
+            <Profile />
+          // </ProtectedRoute>
       },
     ],
   },
