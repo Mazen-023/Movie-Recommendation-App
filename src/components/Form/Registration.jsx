@@ -48,7 +48,7 @@ const Registration = () => {
               required
             />
             {/* Last Name */}
-            {/* <input
+            <input
               type="text"
               name="Lname"
               id="Lname"
@@ -56,7 +56,7 @@ const Registration = () => {
               className="flex-1 bg-gray-700 focus:ring-indigo-500 focus:border-indigo-500 rounded-md block w-full pl-3 pr-10 py-2 text-white sm:text-sm"
               placeholder="Last Name"
               required
-            /> */}
+            />
           </label>
         </div>
         {/* Email */}
