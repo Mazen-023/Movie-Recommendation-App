@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { login } from "../../redux/slices/authSlice"; // Import login action
+import { loginUser } from "../../redux/slices/authSlice"; // Import login action
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -13,7 +13,7 @@ const Login = () => {
     // For simplicity, assume login is always successful.
     // Normally, you'd check the credentials here.
     const userData = { email, password }; // Payload
-    dispatch(login(userData)); // Dispatch the login action
+    dispatch(loginUser(userData)); // Dispatch the login action
   };
 
   return (
