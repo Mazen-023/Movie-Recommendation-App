@@ -40,7 +40,7 @@ const UserIconDropdown = ({ userIcon }) => {
       {isDropdownVisible && (
         <div
           ref={dropdownRef}
-          className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg"
+          className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 shadow-lg rounded-lg"
         >
           <LoginLogoutMenu />
         </div>

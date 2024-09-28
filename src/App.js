@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -7,6 +7,8 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setBannerData, setImageURL } from "./redux/slices/movieoSlice";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Profile from "./Profile/Profile";
 
 function App() {
   const dispatch = useDispatch();
@@ -35,7 +37,7 @@ function App() {
   }, []);
 
   return (
-    <main className="pb-14 lg:pb-0">
+    <main className="pb-14 lg:pb-0 bg-[#171717] dark:bg-white text-white">
       <Header />
       <div className="min-h-[90vh]">
         <Outlet />

@@ -1,5 +1,5 @@
 // FavoriteMovies.js
-import React from 'react';
+import React from "react";
 
 const FavoriteMovies = ({ movies }) => {
   if (!movies.length) {

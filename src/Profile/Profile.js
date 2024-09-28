@@ -52,10 +52,9 @@ const Profile = () => {
   const handleEditSocialToggle = () => setIsEditingSocial(!isEditingSocial);
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+    <div className="min-h-screen bg-gray-800 dark:bg-gray-100 text-gray-100 dark:text-gray-900">
       <div className="container mx-auto p-4">
-
-        <div className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-lg">
+        <div className="bg-gray-900 dark:bg-white p-6 rounded-lg shadow-lg">
           <div className="flex items-center space-x-4">
             {/* Profile Image Upload */}
             <div>
@@ -67,7 +66,6 @@ const Profile = () => {
                   alt="Profile"
                   className="w-24 h-24 rounded-full object-cover cursor-pointer"
                 />
-                  <ThemeToggle />
               </label>
               <input
                 type="file"
@@ -92,7 +90,7 @@ const Profile = () => {
                         username: e.target.value,
                       })
                     }
-                    className="text-lg font-bold mb-2 p-1 bg-gray-200 dark:bg-gray-700 rounded"
+                    className="text-lg font-bold mb-2 p-1 bg-gray-700 dark:bg-gray-200 rounded"
                   />
                   <textarea
                     name="bio"
@@ -100,7 +98,7 @@ const Profile = () => {
                     onChange={(e) =>
                       setProfileData({ ...profileData, bio: e.target.value })
                     }
-                    className="w-full bg-gray-200 dark:bg-gray-700 rounded p-1 mb-2"
+                    className="w-full bg-gray-700 dark:bg-gray-200 rounded p-1 mb-2"
                   />
                   <input
                     type="email"
@@ -109,7 +107,7 @@ const Profile = () => {
                     onChange={(e) =>
                       setProfileData({ ...profileData, email: e.target.value })
                     }
-                    className="w-full bg-gray-200 dark:bg-gray-700 rounded p-1"
+                    className="w-full bg-gray-700 dark:bg-gray-200 rounded p-1"
                   />
                 </div>
               ) : (
@@ -132,7 +130,7 @@ const Profile = () => {
         </div>
 
         {/* Social Media Links */}
-        <div className="mt-6 bg-white dark:bg-gray-900 p-6 rounded-lg shadow-lg">
+        <div className="mt-6 bg-gray-900 dark:bg-white p-6 rounded-lg shadow-lg">
           <h2 className="text-xl font-semibold mb-4">Social Links</h2>
           {isEditingSocial ? (
             <div>
@@ -145,7 +143,7 @@ const Profile = () => {
                     onChange={(e) =>
                       handleSocialMediaChange(platform, e.target.value)
                     }
-                    className="w-full bg-gray-200 dark:bg-gray-700 rounded p-1"
+                    className="w-full bg-gray-700 dark:bg-gray-200 rounded p-1"
                   />
                 </div>
               ))}

@@ -12,8 +12,8 @@ const HorizontalScollCard = ({ data = [], heading, trending, media_type }) => {
     contaierRef.current.scrollLeft -= 300;
   };
   return (
-    <div className="container mx-auto px-3 my-10">
-      <h2 className="text-xl lg:text-2xl font-bold mb-3 text-white capitalize">
+    <div className="container mx-auto px-3 my-10 ">
+      <h2 className="text-xl lg:text-2xl font-bold mb-3 text-white dark:text-black capitalize">
         {heading}
       </h2>
 
@@ -38,13 +38,13 @@ const HorizontalScollCard = ({ data = [], heading, trending, media_type }) => {
         <div className="absolute top-0 hidden lg:flex justify-between w-full h-full items-center">
           <button
             onClick={handlePrevious}
-            className="bg-white p-1 text-black rounded-full -ml-2 z-10"
+            className="bg-white dark:bg-gray-800 p-1 text-black dark:text-white rounded-full -ml-2 z-10"
           >
             <FaAngleLeft />
           </button>
           <button
             onClick={handleNext}
-            className="bg-white p-1 text-black rounded-full -mr-2 z-10"
+            className="bg-white dark:bg-gray-800 p-1 text-black dark:text-white rounded-full -mr-2 z-10"
           >
             <FaAngleRight />
           </button>
