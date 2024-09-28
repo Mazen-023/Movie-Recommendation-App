@@ -12,6 +12,7 @@ import ResetPass from "../components/Form/ResetPass";
 import Verification from "../components/Form/Verification";
 import ProtectedRoute from '../components/ProtectedRoute';
 import Profile from "../Profile/Profile";
+import PageNotFound from "../components/404 Page";
 
 const router = createBrowserRouter([
   {
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
           // <ProtectedRoute>
             <Profile />
           // </ProtectedRoute>
+      },
+      {
+        path: "404-error-page",
+        element: <PageNotFound />
       },
     ],
   },
