@@ -28,7 +28,7 @@ const Home = () => {
       />
       <HorizontalScollCard
         data={topRatedData}
-        heading={"Top Rated Movies"}
+        heading={"Highest Rating"}
         media_type={"movie"}
       />
       <HorizontalScollCard
