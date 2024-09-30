@@ -75,7 +75,7 @@ const Card = ({ data, trending, index, media_type }) => {
       {/* Favorite Button */}
       <button
         onClick={handleAddToFavorites}
-        className="absolute top-2 right-2 text-white dark:text-gray-200 hover:text-red-500 dark:hover:text-red-400 transition-all"
+        className="absolute top-2 right-2 text-white dark:text-red-500 hover:text-red-500 dark:hover:text-white transition-all"
       >
         <FaHeart size={24} /> {/* Heart Icon */}
       </button>
