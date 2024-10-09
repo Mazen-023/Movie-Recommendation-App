@@ -8,7 +8,8 @@ const Registration = () => {
   const { isLoading, error } = useSelector((state) => state.auth);
 
   const [formData, setFormData] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
     passwordConfirm: "",
@@ -37,24 +38,24 @@ const Registration = () => {
         </h2>
         <div className="flex mb-6 space-x-4">
           {/* First Name */}
-          <label htmlFor="name" className="flex-1">
+          <label htmlFor="firstName" className="flex-1">
             <input
               type="text"
-              name="name"
-              id="name"
+              name="firstName"
+              id="firstName"
               onChange={handleInputChange}
               className="bg-gray-700 dark:bg-gray-200 border border-gray-600 dark:border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 rounded-md block w-full pl-3 pr-10 py-2 text-gray-100 dark:text-gray-900 sm:text-sm"
-              placeholder="Name"
+              placeholder="First Name"
               required
             />
           </label>
 
           {/* Last Name */}
-          <label htmlFor="Lname" className="flex-1">
+          <label htmlFor="lastName" className="flex-1">
             <input
               type="text"
-              name="Lname"
-              id="Lname"
+              name="lastName"
+              id="lastName"
               onChange={handleInputChange}
               className="bg-gray-700 dark:bg-gray-200 border border-gray-600 dark:border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 rounded-md block w-full pl-3 pr-10 py-2 text-gray-100 dark:text-gray-900 sm:text-sm"
               placeholder="Last Name"
