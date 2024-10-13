@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { setBannerData, setImageURL } from "./redux/slices/movieoSlice";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Profile from "./Profile/Profile";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const dispatch = useDispatch();
@@ -44,6 +45,7 @@ function App() {
       </div>
       <Footer />
       <MobileNavigation />
+      <Toaster />
     </main>
   );
 }

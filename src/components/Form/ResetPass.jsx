@@ -1,12 +1,47 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import axiosInstance from "../../config/index";
+import toast from "react-hot-toast";
 
 const ResetPass = () => {
   const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here
+    const data = {
+      email,
+    };
+    try {
+      setIsLoading(true);
+      const response = await axiosInstance.post("/forgetpassword", data);
+      if (response.status === 200) {
+        toast.success(`${response.data.message}`, {
+          position: "top-center",
+          duration: 4000,
+          style: {
+            backgroundColor: "#4f46e5",
+            color: "white",
+            width: "fit-content",
+          },
+        });
+        navigate("/verification");
+      }
+    } catch (error) {
+      toast.error(`${error.response.data.message}`, {
+        position: "top-center",
+        duration: 1500,
+        style: {
+          backgroundColor: "red",
+          color: "white",
+          width: "fit-content",
+        },
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -18,9 +53,9 @@ const ResetPass = () => {
         <h2 className="text-2xl text-center font-bold mb-6">
           Reset your password
         </h2>
-        <span className="block mb-4 text-center text-sm font-medium">
+        {/* <span className="block mb-4 text-center text-sm font-medium">
           To reset your password, enter your Email
-        </span>
+        </span> */}
         <label htmlFor="email" className="block mb-6">
           <input
             type="email"
@@ -28,15 +63,39 @@ const ResetPass = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="bg-gray-700 dark:bg-gray-200 border border-gray-600 dark:border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 rounded-md block w-full pl-3 pr-10 py-2 text-gray-100 dark:text-gray-900 sm:text-sm"
-            placeholder="Email"
+            placeholder="Enter Your Email Email"
             pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
             required
           />
         </label>
         <button
           type="submit"
-          className="mt-4 w-full rounded-md bg-indigo-500 dark:bg-indigo-600 py-2 px-4 text-center text-white font-medium hover:bg-indigo-600 dark:hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          className="flex justify-center items-center w-full rounded-md bg-indigo-500 dark:bg-indigo-600 py-2 px-4 text-center text-white font-medium hover:bg-indigo-600 dark:hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         >
+          {isLoading ? (
+            <svg
+              className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+              ></circle>
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
+          ) : (
+            ""
+          )}
           Next
         </button>
         <Link

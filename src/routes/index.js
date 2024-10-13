@@ -10,9 +10,10 @@ import Registration from "../components/Form/Registration";
 import PassConfirm from "../components/Form/PassConfirm";
 import ResetPass from "../components/Form/ResetPass";
 import Verification from "../components/Form/Verification";
-import ProtectedRoute from '../components/ProtectedRoute';
+import ProtectedRoute from "../components/ProtectedRoute";
 import Profile from "../Profile/Profile";
 import PageNotFound from "../components/404 Page";
+import NewPassword from "../components/Form/NewPassword";
 
 const router = createBrowserRouter([
   {
@@ -56,15 +57,20 @@ const router = createBrowserRouter([
         element: <Verification />,
       },
       {
+        path: "newPassword",
+        element: <NewPassword />,
+      },
+      {
         path: "profile",
-        element: 
+        element: (
           // <ProtectedRoute>
-            <Profile />
-          // </ProtectedRoute>
+          <Profile />
+        ),
+        // </ProtectedRoute>
       },
       {
         path: "404-error-page",
-        element: <PageNotFound />
+        element: <PageNotFound />,
       },
     ],
   },
