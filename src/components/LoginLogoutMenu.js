@@ -3,10 +3,12 @@ import { NavLink } from "react-router-dom";
 import { KeyIcon, LogoutIcon, UserIcon } from "@heroicons/react/solid"; // Import icons
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser, logout } from "../redux/slices/authSlice"; // Import loginUser instead of login
+import Cookies from "js-cookie";
 
 const LoginLogoutMenu = () => {
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated); // Access auth state
+  const isAuthenticated = Cookies.get("data") && JSON.parse(Cookies.get("data")); // Access auth state
   const dispatch = useDispatch();
+  console.log(isAuthenticated, "asfas");
 
   const handleLogin = async () => {
     const credentials = { username: "yourUsername", password: "yourPassword" }; // Replace with actual user input
@@ -14,6 +16,7 @@ const LoginLogoutMenu = () => {
   };
 
   const handleLogout = () => {
+    Cookies.remove("data");
     dispatch(logout());
   };
 
@@ -22,11 +25,10 @@ const LoginLogoutMenu = () => {
       {isAuthenticated ? (
         <div>
           <NavLink
-            to="/"
+            to="/login"
             onClick={handleLogout}
             className={({ isActive }) =>
-              `flex items-center space-x-2 block text-blue-500 dark:text-blue-300 font-semibold hover:text-blue-700 dark:hover:text-blue-400 hover:underline transition duration-300 ${
-                isActive ? "text-blue-700 dark:text-blue-400 underline" : ""
+              `flex items-center space-x-2 block text-blue-500 dark:text-blue-300 font-semibold hover:text-blue-700 dark:hover:text-blue-400 hover:underline transition duration-300 ${isActive ? "text-blue-700 dark:text-blue-400 underline" : ""
               }`
             }
           >
@@ -36,8 +38,7 @@ const LoginLogoutMenu = () => {
           <NavLink
             to="/profile" // Link to the Profile page
             className={({ isActive }) =>
-              `flex items-center space-x-2 block text-blue-500 dark:text-blue-300 font-semibold hover:text-blue-700 dark:hover:text-blue-400 hover:underline transition duration-300 ${
-                isActive ? "text-blue-700 dark:text-blue-400 underline" : ""
+              `flex items-center space-x-2 block text-blue-500 dark:text-blue-300 font-semibold hover:text-blue-700 dark:hover:text-blue-400 hover:underline transition duration-300 ${isActive ? "text-blue-700 dark:text-blue-400 underline" : ""
               }`
             }
           >
@@ -50,8 +51,7 @@ const LoginLogoutMenu = () => {
           to="/login"
           onClick={handleLogin}
           className={({ isActive }) =>
-            `flex items-center space-x-2 block text-blue-500 dark:text-blue-300 font-semibold hover:text-blue-700 dark:hover:text-blue-400 hover:underline transition duration-300 ${
-              isActive ? "text-blue-700 dark:text-blue-400 underline" : ""
+            `flex items-center space-x-2 block text-blue-500 dark:text-blue-300 font-semibold hover:text-blue-700 dark:hover:text-blue-400 hover:underline transition duration-300 ${isActive ? "text-blue-700 dark:text-blue-400 underline" : ""
             }`
           }
         >

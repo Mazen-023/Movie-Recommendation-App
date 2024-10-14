@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import Cookies from "js-cookie";
+
 
 const initialState = {
   isAuthenticated: false, // Start with user being logged out

@@ -3,14 +3,18 @@ import React, { useState } from "react";
 import ThemeToggle from "./ThemeToggle";
 import FavoriteMovies from "./FavoriteMovies";
 import axios from "axios";
+import Cookies from "js-cookie";
+
 
 const Profile = () => {
+  const isAuthenticated = Cookies.get("data") && JSON.parse(Cookies.get("data")); // Access auth state
   const [isEditing, setIsEditing] = useState(false);
+  console.log(isAuthenticated, "profile");
   const [isEditingSocial, setIsEditingSocial] = useState(false);
   const [profileData, setProfileData] = useState({
-    username: "Enter Your Name",
+    username: isAuthenticated.data.firstName || "Enter Your Name",
     bio: "Bio",
-    email: "Email",
+    email: isAuthenticated.data.email || "Email",
     profileImage: null, // To store profile image URL or file
     socialLinks: {
       twitter: "",

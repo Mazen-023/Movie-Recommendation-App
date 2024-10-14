@@ -37,8 +37,10 @@ const Login = () => {
             width: "fit-content",
           },
         });
-        Cookies.set("jwt", response.data.token, { expires: 1 });
+        Cookies.set("data", JSON.stringify(response.data), { expires: 1 });
         Cookies.set("id", response.data.data.id, { expires: 1 });
+        console.log(response.data, "adsga");
+
         navigate("/");
       }
     } catch (error) {

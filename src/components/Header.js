@@ -24,7 +24,7 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed top-0 w-full h-16 bg-black bg-opacity-50 dark:bg-neutral-800 dark:bg-opacity-50 z-40">
+    <header className={`${location.pathname == "/login" || location.pathname == "/registration" ? "hidden" : "block"} fixed top-0 w-full h-16 bg-black bg-opacity-50 dark:bg-neutral-800 dark:bg-opacity-50 z-40`}>
       <div className="container mx-auto px-3 flex items-center h-full">
         <Link to={"/"}>
           <img src={movie} alt="logo" width={120} />
@@ -37,10 +37,9 @@ const Header = () => {
                 <NavLink
                   to={nav.href}
                   className={({ isActive }) =>
-                    `px-2 hover:text-neutral-700 dark:hover:text-neutral-500 ${
-                      isActive
-                        ? "text-neutral-100 dark:text-neutral-100"
-                        : "text-neutral-100 dark:text-neutral-100"
+                    `px-2 hover:text-neutral-700 dark:hover:text-neutral-500 ${isActive
+                      ? "text-neutral-100 dark:text-neutral-100"
+                      : "text-neutral-100 dark:text-neutral-100"
                     }`
                   }
                 >
