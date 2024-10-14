@@ -1,8 +1,6 @@
 // Profile.js
 import React, { useState } from "react";
-import ThemeToggle from "./ThemeToggle";
 import FavoriteMovies from "./FavoriteMovies";
-import axios from "axios";
 import Cookies from "js-cookie";
 
 
@@ -56,7 +54,7 @@ const Profile = () => {
   const handleEditSocialToggle = () => setIsEditingSocial(!isEditingSocial);
 
   return (
-    <div className="min-h-screen bg-gray-800 dark:bg-gray-100 text-gray-100 dark:text-gray-900">
+    <div className="min-h-screen bg-gray-800 dark:bg-gray-100 text-gray-100 dark:text-gray-900 pt-20">
       <div className="container mx-auto p-4">
         <div className="bg-gray-900 dark:bg-white p-6 rounded-lg shadow-lg">
           <div className="flex items-center space-x-4">
