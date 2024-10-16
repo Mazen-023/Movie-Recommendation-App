@@ -3,30 +3,42 @@ import React, { useState } from "react";
 import FavoriteMovies from "./FavoriteMovies";
 import Cookies from "js-cookie";
 
-
 const Profile = () => {
-  const isAuthenticated = Cookies.get("data") && JSON.parse(Cookies.get("data")); // Access auth state
+  const isAuthenticated =
+    Cookies.get("data") && JSON.parse(Cookies.get("data")); // Access auth state
+
   const [isEditing, setIsEditing] = useState(false);
-  console.log(isAuthenticated, "profile");
   const [isEditingSocial, setIsEditingSocial] = useState(false);
+
   const [profileData, setProfileData] = useState({
     username: isAuthenticated.data.firstName || "Enter Your Name",
     bio: "Bio",
     email: isAuthenticated.data.email || "Email",
-    profileImage: null, // To store profile image URL or file
+    profileImage: null,
     socialLinks: {
       twitter: "",
       instagram: "",
       facebook: "",
     },
-    favoriteMovies: [],
+    favoriteMovies: [], // Favorite movies stored here
   });
 
-  // API call to mark movie as favorite and update user's profile
+  // Add a movie to favorites
   const handleFavoriteMovie = (movie) => {
     setProfileData((prevState) => ({
       ...prevState,
       favoriteMovies: [...prevState.favoriteMovies, movie],
+    }));
+  };
+
+  // Remove a movie from favorites
+  const handleRemoveFavorite = (id) => {
+    const updatedMovies = profileData.favoriteMovies.filter(
+      (movie) => movie.id !== id
+    );
+    setProfileData((prevState) => ({
+      ...prevState,
+      favoriteMovies: updatedMovies,
     }));
   };
 
@@ -182,7 +194,10 @@ const Profile = () => {
         </div>
 
         {/* Favorite Movies */}
-        <FavoriteMovies movies={profileData.favoriteMovies} />
+        <FavoriteMovies
+          movies={profileData.favoriteMovies}
+          handleRemove={handleRemoveFavorite} // Pass the remove handler
+        />
       </div>
     </div>
   );

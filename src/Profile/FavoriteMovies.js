@@ -1,7 +1,8 @@
 // FavoriteMovies.js
 import React from "react";
+import { FaTimes } from "react-icons/fa";
 
-const FavoriteMovies = ({ movies }) => {
+const FavoriteMovies = ({ movies, handleRemove }) => {
   if (!movies.length) {
     return <p className="text-center text-gray-500">No favorite movies yet.</p>;
   }
@@ -21,6 +22,13 @@ const FavoriteMovies = ({ movies }) => {
               {movie.title || movie.name}
             </h3>
             <p>Rating: {movie.vote_average.toFixed(1)}</p>
+            {/* Remove button */}
+            <button
+              onClick={() => handleRemove(movie.id)}
+              className="mt-2 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+            >
+                <FaTimes size={24} />
+            </button>
           </div>
         ))}
       </div>
