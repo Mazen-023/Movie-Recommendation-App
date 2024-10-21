@@ -8,41 +8,26 @@ const Profile = () => {
     Cookies.get("data") && JSON.parse(Cookies.get("data")); // Access auth state
 
   const [isEditing, setIsEditing] = useState(false);
-  const [isEditingSocial, setIsEditingSocial] = useState(false);
+  const [isEditingPassword, setIsEditingPassword] = useState(false); // Track password edit mode
+  const [passwordData, setPasswordData] = useState({
+    oldPassword: "",
+    newPassword: "",
+    confirmNewPassword: "",
+  });
 
   const [profileData, setProfileData] = useState({
-    username: isAuthenticated.data.firstName || "Enter Your Name",
+    firstName: isAuthenticated.data.firstName || "First Name",
+    lastName: isAuthenticated.data.lastName || "Last Name",
     bio: "Bio",
     email: isAuthenticated.data.email || "Email",
     profileImage: null,
-    socialLinks: {
-      twitter: "",
-      instagram: "",
-      facebook: "",
-    },
-    favoriteMovies: [], // Favorite movies stored here
+    favoriteMovies: [],
   });
 
-  // Add a movie to favorites
-  const handleFavoriteMovie = (movie) => {
-    setProfileData((prevState) => ({
-      ...prevState,
-      favoriteMovies: [...prevState.favoriteMovies, movie],
-    }));
+  const handleProfileChange = (field, value) => {
+    setProfileData((prev) => ({ ...prev, [field]: value }));
   };
 
-  // Remove a movie from favorites
-  const handleRemoveFavorite = (id) => {
-    const updatedMovies = profileData.favoriteMovies.filter(
-      (movie) => movie.id !== id
-    );
-    setProfileData((prevState) => ({
-      ...prevState,
-      favoriteMovies: updatedMovies,
-    }));
-  };
-
-  // Handle image upload
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -54,16 +39,32 @@ const Profile = () => {
     }
   };
 
-  // Handle social media links update
-  const handleSocialMediaChange = (platform, value) => {
-    setProfileData({
-      ...profileData,
-      socialLinks: { ...profileData.socialLinks, [platform]: value },
-    });
+  const handlePasswordChange = (field, value) => {
+    setPasswordData((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleSavePassword = () => {
+    const { oldPassword, newPassword, confirmNewPassword } = passwordData;
+
+    if (newPassword !== confirmNewPassword) {
+      alert("New passwords do not match.");
+      return;
+    }
+
+    console.log("Password change initiated:", { oldPassword, newPassword });
+    alert("Password changed successfully!");
+    setPasswordData({ oldPassword: "", newPassword: "", confirmNewPassword: "" });
+    setIsEditingPassword(false); // Hide inputs after saving
   };
 
   const handleEditToggle = () => setIsEditing(!isEditing);
-  const handleEditSocialToggle = () => setIsEditingSocial(!isEditingSocial);
+
+  const handleRemoveFavorite = (id) => {
+    const updatedMovies = profileData.favoriteMovies.filter(
+      (movie) => movie.id !== id
+    );
+    setProfileData((prev) => ({ ...prev, favoriteMovies: updatedMovies }));
+  };
 
   return (
     <div className="min-h-screen bg-gray-800 dark:bg-gray-100 text-gray-100 dark:text-gray-900 pt-20">
@@ -96,37 +97,49 @@ const Profile = () => {
                 <div>
                   <input
                     type="text"
-                    name="username"
-                    value={profileData.username}
+                    name="firstName"
+                    value={profileData.firstName}
                     onChange={(e) =>
-                      setProfileData({
-                        ...profileData,
-                        username: e.target.value,
-                      })
+                      handleProfileChange("firstName", e.target.value)
                     }
                     className="text-lg font-bold mb-2 p-1 bg-gray-700 dark:bg-gray-200 rounded"
+                    placeholder="First Name"
+                  />
+                  <input
+                    type="text"
+                    name="lastName"
+                    value={profileData.lastName}
+                    onChange={(e) =>
+                      handleProfileChange("lastName", e.target.value)
+                    }
+                    className="text-lg font-bold mb-2 p-1 bg-gray-700 dark:bg-gray-200 rounded ml-4"
+                    placeholder="Last Name"
                   />
                   <textarea
                     name="bio"
                     value={profileData.bio}
                     onChange={(e) =>
-                      setProfileData({ ...profileData, bio: e.target.value })
+                      handleProfileChange("bio", e.target.value)
                     }
                     className="w-full bg-gray-700 dark:bg-gray-200 rounded p-1 mb-2"
+                    placeholder="Bio"
                   />
                   <input
                     type="email"
                     name="email"
                     value={profileData.email}
                     onChange={(e) =>
-                      setProfileData({ ...profileData, email: e.target.value })
+                      handleProfileChange("email", e.target.value)
                     }
                     className="w-full bg-gray-700 dark:bg-gray-200 rounded p-1"
+                    placeholder="Email"
                   />
                 </div>
               ) : (
                 <div>
-                  <h1 className="text-2xl font-bold">{profileData.username}</h1>
+                  <h1 className="text-2xl font-bold">
+                    {profileData.firstName} {profileData.lastName}
+                  </h1>
                   <p>{profileData.bio}</p>
                   <p>{profileData.email}</p>
                 </div>
@@ -143,60 +156,63 @@ const Profile = () => {
           </div>
         </div>
 
-        {/* Social Media Links */}
+        {/* Change Password Section */}
         <div className="mt-6 bg-gray-900 dark:bg-white p-6 rounded-lg shadow-lg">
-          <h2 className="text-xl font-semibold mb-4">Social Links</h2>
-          {isEditingSocial ? (
-            <div>
-              {Object.keys(profileData.socialLinks).map((platform) => (
-                <div key={platform} className="mb-2">
-                  <input
-                    type="url"
-                    placeholder={`Enter ${platform} link`}
-                    value={profileData.socialLinks[platform]}
-                    onChange={(e) =>
-                      handleSocialMediaChange(platform, e.target.value)
-                    }
-                    className="w-full bg-gray-700 dark:bg-gray-200 rounded p-1"
-                  />
-                </div>
-              ))}
+          <h2 className="text-xl font-semibold mb-4">Change Password</h2>
+
+          {isEditingPassword ? (
+            <div className="space-y-4">
+              <input
+                type="password"
+                name="oldPassword"
+                value={passwordData.oldPassword}
+                onChange={(e) =>
+                  handlePasswordChange("oldPassword", e.target.value)
+                }
+                className="block w-1/4 bg-gray-700 dark:bg-gray-200 rounded p-1"
+                placeholder="Old Password"
+              />
+              <input
+                type="password"
+                name="newPassword"
+                value={passwordData.newPassword}
+                onChange={(e) =>
+                  handlePasswordChange("newPassword", e.target.value)
+                }
+                className="block w-1/4 bg-gray-700 dark:bg-gray-200 rounded p-1"
+                placeholder="New Password"
+              />
+              <input
+                type="password"
+                name="confirmNewPassword"
+                value={passwordData.confirmNewPassword}
+                onChange={(e) =>
+                  handlePasswordChange("confirmNewPassword", e.target.value)
+                }
+                className="block w-1/4 bg-gray-700 dark:bg-gray-200 rounded p-1"
+                placeholder="Confirm New Password"
+              />
               <button
-                onClick={handleEditSocialToggle}
+                onClick={handleSavePassword}
                 className="mt-2 px-4 py-1 text-white bg-green-500 hover:bg-green-600 rounded"
               >
-                Save Social Links
+                Save Password
               </button>
             </div>
           ) : (
-            <div>
-              {Object.entries(profileData.socialLinks).map(([platform, link]) =>
-                link ? (
-                  <a
-                    key={platform}
-                    href={link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block text-blue-500 mb-2"
-                  >
-                    {platform}
-                  </a>
-                ) : null
-              )}
-              <button
-                onClick={handleEditSocialToggle}
-                className="mt-2 px-4 py-1 text-white bg-blue-500 hover:bg-blue-600 rounded"
-              >
-                {isEditingSocial ? "Save" : "Edit Social Links"}
-              </button>
-            </div>
+            <button
+              onClick={() => setIsEditingPassword(true)}
+              className="px-4 py-1 text-white bg-blue-500 hover:bg-blue-600 rounded"
+            >
+              Edit Password
+            </button>
           )}
         </div>
 
-        {/* Favorite Movies */}
+        {/* Favorite Movies Section */}
         <FavoriteMovies
           movies={profileData.favoriteMovies}
-          handleRemove={handleRemoveFavorite} // Pass the remove handler
+          handleRemove={handleRemoveFavorite}
         />
       </div>
     </div>
