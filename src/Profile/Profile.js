@@ -92,7 +92,7 @@ const Profile = () => {
             </div>
 
             {/* User Info */}
-            <div>
+            <div className="w-1/2">
               {isEditing ? (
                 <div>
                   <input
