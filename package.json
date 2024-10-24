@@ -2,7 +2,7 @@
   "name": "movieapp",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://movies.github.io/App",
+  "homepage": "https://Mazen-023.github.io/Movie-Recommendation-App",
   "dependencies": {
     "@heroicons/react": "^1.0.6",
     "@reduxjs/toolkit": "^2.2.7",
