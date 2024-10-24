@@ -1,14 +1,17 @@
-// Profile.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FavoriteMovies from "./FavoriteMovies";
 import Cookies from "js-cookie";
+import axios from "axios";
 
 const Profile = () => {
   const isAuthenticated =
-    Cookies.get("data") && JSON.parse(Cookies.get("data")); // Access auth state
+    Cookies.get("data") && JSON.parse(Cookies.get("data"));
 
   const [isEditing, setIsEditing] = useState(false);
-  const [isEditingPassword, setIsEditingPassword] = useState(false); // Track password edit mode
+  const [isEditingPassword, setIsEditingPassword] = useState(false);
+  const [loadingFavorites, setLoadingFavorites] = useState(true);
+  const [errorFavorites, setErrorFavorites] = useState(null);
+
   const [passwordData, setPasswordData] = useState({
     oldPassword: "",
     newPassword: "",
@@ -16,26 +19,98 @@ const Profile = () => {
   });
 
   const [profileData, setProfileData] = useState({
-    firstName: isAuthenticated.data.firstName || "First Name",
-    lastName: isAuthenticated.data.lastName || "Last Name",
-    bio: "Bio",
-    email: isAuthenticated.data.email || "Email",
-    profileImage: null,
+    firstName: isAuthenticated?.data?.firstName || "First Name",
+    lastName: isAuthenticated?.data?.lastName || "Last Name",
+    bio: isAuthenticated?.data?.bio || "Bio",
+    email: isAuthenticated?.data?.email || "Email",
+    profileImage: isAuthenticated?.data?.profileImage || null,
     favoriteMovies: [],
   });
+
+  useEffect(() => {
+    const fetchFavoriteMovies = async () => {
+      setLoadingFavorites(true);
+      setErrorFavorites(null);
+
+      try {
+        const response = await axios.get("/api/v1/favorites", {
+          headers: {
+            Authorization: `Bearer ${isAuthenticated.token}`,
+          },
+        });
+
+        const favoriteMovies = response.data.data;
+        setProfileData((prev) => ({
+          ...prev,
+          favoriteMovies: favoriteMovies,
+        }));
+        setLoadingFavorites(false);
+      } catch (error) {
+        setErrorFavorites("Failed to load favorite movies.");
+        setLoadingFavorites(false);
+      }
+    };
+
+    fetchFavoriteMovies();
+  }, [isAuthenticated?.token]);
 
   const handleProfileChange = (field, value) => {
     setProfileData((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleImageUpload = (e) => {
-    const file = e.target.files[0];
+    const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = (upload) => {
-        setProfileData({ ...profileData, profileImage: upload.target.result });
+        setProfileData((prev) => ({
+          ...prev,
+          profileImage: upload.target?.result,
+        }));
       };
       reader.readAsDataURL(file);
+    }
+  };
+
+  const handleAddFavorite = async (movieId) => {
+    try {
+      const response = await axios.post(
+        "/api/v1/favorites",
+        { movieId },
+        {
+          headers: {
+            Authorization: `Bearer ${isAuthenticated.token}`,
+          },
+        }
+      );
+
+      const updatedFavorites = response.data.data;
+      setProfileData((prev) => ({
+        ...prev,
+        favoriteMovies: updatedFavorites,
+      }));
+      alert("Movie added to favorites!");
+    } catch (error) {
+      alert("Failed to add movie to favorites. Please try again.");
+    }
+  };
+
+  const handleRemoveFavorite = async (movieId) => {
+    try {
+      const response = await axios.delete(`/api/v1/favorites/${movieId}`, {
+        headers: {
+          Authorization: `Bearer ${isAuthenticated.token}`,
+        },
+      });
+
+      const updatedFavorites = response.data.data;
+      setProfileData((prev) => ({
+        ...prev,
+        favoriteMovies: updatedFavorites,
+      }));
+      alert("Movie removed from favorites.");
+    } catch (error) {
+      alert("Failed to remove movie from favorites. Please try again.");
     }
   };
 
@@ -43,7 +118,7 @@ const Profile = () => {
     setPasswordData((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleSavePassword = () => {
+  const handleSavePassword = async () => {
     const { oldPassword, newPassword, confirmNewPassword } = passwordData;
 
     if (newPassword !== confirmNewPassword) {
@@ -51,19 +126,31 @@ const Profile = () => {
       return;
     }
 
-    console.log("Password change initiated:", { oldPassword, newPassword });
-    alert("Password changed successfully!");
-    setPasswordData({ oldPassword: "", newPassword: "", confirmNewPassword: "" });
-    setIsEditingPassword(false); // Hide inputs after saving
-  };
+    try {
+      const response = await axios.put(
+        "/api/v1/user/password",
+        { oldPassword, newPassword },
+        {
+          headers: {
+            Authorization: `Bearer ${isAuthenticated.token}`,
+          },
+        }
+      );
 
-  const handleEditToggle = () => setIsEditing(!isEditing);
-
-  const handleRemoveFavorite = (id) => {
-    const updatedMovies = profileData.favoriteMovies.filter(
-      (movie) => movie.id !== id
-    );
-    setProfileData((prev) => ({ ...prev, favoriteMovies: updatedMovies }));
+      if (response.data.status === "success") {
+        alert("Password changed successfully!");
+        setPasswordData({
+          oldPassword: "",
+          newPassword: "",
+          confirmNewPassword: "",
+        });
+        setIsEditingPassword(false);
+      } else {
+        alert("Failed to change password. Please try again.");
+      }
+    } catch (error) {
+      alert("Error changing password. Please check your old password.");
+    }
   };
 
   return (
@@ -71,7 +158,6 @@ const Profile = () => {
       <div className="container mx-auto p-4">
         <div className="bg-gray-900 dark:bg-white p-6 rounded-lg shadow-lg">
           <div className="flex items-center space-x-4">
-            {/* Profile Image Upload */}
             <div>
               <label htmlFor="profileImageUpload">
                 <img
@@ -91,7 +177,6 @@ const Profile = () => {
               />
             </div>
 
-            {/* User Info */}
             <div className="w-1/2">
               {isEditing ? (
                 <div>
@@ -118,9 +203,7 @@ const Profile = () => {
                   <textarea
                     name="bio"
                     value={profileData.bio}
-                    onChange={(e) =>
-                      handleProfileChange("bio", e.target.value)
-                    }
+                    onChange={(e) => handleProfileChange("bio", e.target.value)}
                     className="w-full bg-gray-700 dark:bg-gray-200 rounded p-1 mb-2"
                     placeholder="Bio"
                   />
@@ -145,9 +228,8 @@ const Profile = () => {
                 </div>
               )}
 
-              {/* Edit Button */}
               <button
-                onClick={handleEditToggle}
+                onClick={() => setIsEditing(!isEditing)}
                 className="mt-2 px-4 py-1 text-white bg-blue-500 hover:bg-blue-600 rounded"
               >
                 {isEditing ? "Save" : "Edit"}
@@ -156,7 +238,6 @@ const Profile = () => {
           </div>
         </div>
 
-        {/* Change Password Section */}
         <div className="mt-6 bg-gray-900 dark:bg-white p-6 rounded-lg shadow-lg">
           <h2 className="text-xl font-semibold mb-4">Change Password</h2>
 
@@ -209,11 +290,17 @@ const Profile = () => {
           )}
         </div>
 
-        {/* Favorite Movies Section */}
-        <FavoriteMovies
-          movies={profileData.favoriteMovies}
-          handleRemove={handleRemoveFavorite}
-        />
+        {loadingFavorites ? (
+          <p>Loading favorite movies...</p>
+        ) : errorFavorites ? (
+          <p className="text-red-500">{errorFavorites}</p>
+        ) : (
+          <FavoriteMovies
+            movies={profileData.favoriteMovies}
+            handleRemove={handleRemoveFavorite}
+            handleAdd={handleAddFavorite}
+          />
+        )}
       </div>
     </div>
   );
