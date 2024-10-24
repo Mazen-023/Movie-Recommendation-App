@@ -2,6 +2,7 @@
   "name": "movieapp",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://movies.github.io/App",
   "dependencies": {
     "@heroicons/react": "^1.0.6",
     "@reduxjs/toolkit": "^2.2.7",
@@ -30,7 +31,6 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
-
   },
   "eslintConfig": {
     "extends": [
@@ -53,6 +53,5 @@
   "devDependencies": {
     "gh-pages": "^6.2.0",
     "tailwindcss": "^3.4.12"
-  },
-  "homepage": "https://<username>.github.io/<repository-name>"
+  }
 }
